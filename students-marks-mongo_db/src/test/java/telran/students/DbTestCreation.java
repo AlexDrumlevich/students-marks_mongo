@@ -41,6 +41,7 @@ public class DbTestCreation {
 	final static String SUBJECT_2 = "subject2";
 	final static String SUBJECT_3 = "subject3";
 	final static String SUBJECT_4 = "subject4";
+	final static String SUBJECT_5 = "subject5";
 	private static final LocalDate DATE_1 = LocalDate.parse("2023-10-20");
 	private static final LocalDate DATE_2 = LocalDate.parse("2023-11-20");
 	private static final LocalDate DATE_3 = LocalDate.parse("2023-12-20");
@@ -101,6 +102,10 @@ public class DbTestCreation {
 			res.addMark(mark);
 		}
 		return res;
+	}
+	
+	public Student getStudent(long id) {
+		return students[(int) (id -1)];
 	}
 	
 }
