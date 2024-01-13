@@ -1,11 +1,17 @@
 package telran.students;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
+import javax.print.attribute.IntegerSyntax;
 
 import org.springframework.stereotype.Component;
+
+
 
 import lombok.RequiredArgsConstructor;
 import telran.students.repo.StudentRepo;
@@ -42,19 +48,19 @@ public class DbTestCreation {
 	final static String SUBJECT_3 = "subject3";
 	final static String SUBJECT_4 = "subject4";
 	final static String SUBJECT_5 = "subject5";
-	private static final LocalDate DATE_1 = LocalDate.parse("2023-10-20");
-	private static final LocalDate DATE_2 = LocalDate.parse("2023-11-20");
-	private static final LocalDate DATE_3 = LocalDate.parse("2023-12-20");
-	private static final LocalDate DATE_4 = LocalDate.parse("2024-01-01");
+	final static LocalDate DATE_1 = LocalDate.parse("2023-10-20");
+	final static LocalDate DATE_2 = LocalDate.parse("2023-11-20");
+	final static LocalDate DATE_3 = LocalDate.parse("2023-12-20");
+	final static LocalDate DATE_4 = LocalDate.parse("2024-01-01");
 	Student[] students = {
-		new Student(ID_1, NAME_1, PONE_1),
-		new Student(ID_2, NAME_2, PONE_2),
-		new Student(ID_3, NAME_3, PONE_3),
-		new Student(ID_4, NAME_4, PONE_4),
-		new Student(ID_5, NAME_5, PONE_5),
-		new Student(ID_6, NAME_6, PONE_6),
-		new Student(ID_7, NAME_7, PONE_7),
-		
+			new Student(ID_1, NAME_1, PONE_1),
+			new Student(ID_2, NAME_2, PONE_2),
+			new Student(ID_3, NAME_3, PONE_3),
+			new Student(ID_4, NAME_4, PONE_4),
+			new Student(ID_5, NAME_5, PONE_5),
+			new Student(ID_6, NAME_6, PONE_6),
+			new Student(ID_7, NAME_7, PONE_7),
+
 	};
 	Mark[][] marks = {
 			{
@@ -77,7 +83,7 @@ public class DbTestCreation {
 			{
 				new Mark(SUBJECT_1, DATE_1, 70 ),
 				new Mark(SUBJECT_3, DATE_3, 70 ),
-				
+
 			},
 			{
 				new Mark(SUBJECT_1, DATE_1, 100 ),
@@ -85,7 +91,7 @@ public class DbTestCreation {
 				new Mark(SUBJECT_3, DATE_3, 100 ),
 				new Mark(SUBJECT_4, DATE_4, 100 ),
 			},
-			
+
 			{}
 	};
 	public void createDB() {
@@ -96,6 +102,20 @@ public class DbTestCreation {
 	public Mark[] getStudentMarks(long id) {
 		return marks[(int) (id - 1)];
 	}
+
+	public List<Mark> getCertainMarksForStudent(long id, int... numders) {
+		Mark[] marks = getStudentMarks(id);
+		
+		List<Mark> resList = Collections.emptyList();
+		if(marks.length != 0) { 
+			resList = new ArrayList<>();
+			for(int number : numders) {
+				resList.add(marks[number - 1]);
+			}
+		}
+		return resList;
+	}
+
 	StudentDoc indexToStudent(int index) {
 		StudentDoc res = StudentDoc.of(students[index]);
 		for(Mark mark: marks[index]) {
@@ -103,9 +123,9 @@ public class DbTestCreation {
 		}
 		return res;
 	}
-	
+
 	public Student getStudent(long id) {
 		return students[(int) (id -1)];
 	}
-	
+
 }
